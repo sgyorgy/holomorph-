@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bootless-fhe-ml"
+version = "0.1.0"
+description = "Bootstrapping-free CKKS compiler/runtime utilities for ML inference planning"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{name = "holomorph contributors"}]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
