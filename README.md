@@ -20,6 +20,7 @@ pytest
 python examples/demo.py
 PYTHONPATH=. python benchmarks/run_benchmarks.py
 PYTHONPATH=. python benchmarks/validate_requirements.py
+PYTHONPATH=. python benchmarks/external_compare.py
 ```
 
 ## Követelmény-ellenőrzés
@@ -32,6 +33,17 @@ A `benchmarks/validate_requirements.py` összesíti a minimális elfogadási fel
 - biztonsági cél **128 bit**.
 
 A script CSV-szerű eredményt ad vissza és `passed=True` esetén minden fenti feltétel teljesül.
+
+
+## Külső backend összehasonlítás (EVA/CHET, nGraph-HE, Concrete ML, TenSEAL)
+
+A `benchmarks/external_compare.py` script a kért rendszereket ellenőrzi a futtatási környezetben, és összehasonlító riportot ad:
+
+- ha egy backend modul telepítve van, azt jelzi (és itt köthető be a modell-futtató adapter),
+- ha nincs telepítve, explicit `unavailable_or_not_measured` státuszt ad.
+
+> Fontos: ebben a környezetben csak azt tudjuk hitelesen állítani, amit ténylegesen futtattunk.
+> Az 5x gyorsulás top-tier rendszerekhez képest csak akkor jelenthető ki, ha ezek a backendek ténylegesen telepítve és ugyanazon modelleken mérve vannak.
 
 ## Backend integrációs terv
 

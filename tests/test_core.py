@@ -1,6 +1,7 @@
 import random
 
 from benchmarks.run_benchmarks import run_reference_benchmarks
+from benchmarks.external_compare import compare_against_external, probe_external_backends
 from benchmarks.validate_requirements import evaluate_requirements
 from fheml.activations import ChebyshevApproximator
 from fheml.graph import DepthEstimator, GraphNode
@@ -58,3 +59,20 @@ def test_requirement_report_passes():
     assert report.min_speedup >= 5.0
     assert report.security_bits >= 128
     assert report.passed
+
+
+def test_external_probe_returns_requested_backends():
+    results = probe_external_backends()
+    assert len(results) == 4
+    assert {r.name for r in results} == {
+        "Microsoft EVA/CHET",
+        "Intel nGraph-HE",
+        "Concrete ML",
+        "TenSEAL",
+    }
+
+
+def test_external_compare_output_has_internal_line():
+    lines = compare_against_external()
+    assert lines
+    assert lines[0].startswith("internal_bootstrap_free_mean_ms,")
